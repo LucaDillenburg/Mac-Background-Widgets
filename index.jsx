@@ -2,8 +2,7 @@
 // For the full documentation please visit:
 // https://github.com/felixhageloh/uebersicht
 
-// const { exec } = require('child_process');
-import { exec } from 'child_process'
+const { exec } = require('child_process');
 
 // You can modify this widget as you see fit, or simply delete this file to
 // remove it.
@@ -66,17 +65,17 @@ export const className = `
 `
 
 const morningRoutineAction = () => {
-    //     exec('open -u https://google.com');
     console.log(`morningRoutineAction: ${exec}`);
+    exec('open -u https://google.com');
 };
 const legumoDartAction = () => {
-    //     exec('open /Users/lucadillenburg/Documents/.legumo.code-workspace');
+    exec('open /Users/lucadillenburg/Documents/.legumo.code-workspace');
 };
 const legumoTypescriptAction = () => {
-    //     exec('legumo; code server');
+    exec('legumo; code server');
 };
 const uspAction = () => {
-    //     exec('legumo; code server');
+    exec('legumo; code server');
 };
 
 // render gets called after the shell command has executed. The command's output
@@ -87,17 +86,17 @@ export const render = ({ output }) => {
             <h1 className="no-select">{output}</h1>
             <div className="line" />
             <div className="no-select">
-                <img src="sun.png" className="no-select" onClick={morningRoutineAction}></img> {/* Morning Routine: Safari */}
-                <img src="dart.png" className="no-select"></img> {/* Legumo (dart): Code */}
-                <img src="typescript.png" className="no-select"></img> {/* Legumo (server): Code */}
-                <img src="usp.png" className="no-select" style={{ height: 27, paddingBottom: 5 }}></img> {/* USP: Code + Notion */}
+                {/* <a href="https://google.com"> </a>*/}
+                <img src="images/sun.png" className="no-select"></img>
+                <img src="images/dart.png" className="no-select"></img>
+                <img src="images/typescript.png" className="no-select"></img>
+                <img src="images/usp.png" className="no-select" style={{ height: 27, paddingBottom: 5 }}></img>
             </div>
-            <div className="verse">
+            <div className="verse" >
                 <span className="no-select">
                     "Antes, o seu prazer está na lei do Senhor, e na sua lei, medita de dia e de noite." Salmos 1:2
                 </span>
             </div>
-        </div>
+        </div >
     );
 }
-
