@@ -2,7 +2,7 @@
 // For the full documentation please visit:
 // https://github.com/felixhageloh/uebersicht
 
-const { exec } = require('child_process');
+import { run } from 'uebersicht';
 
 // You can modify this widget as you see fit, or simply delete this file to
 // remove it.
@@ -30,8 +30,12 @@ export const className = `
   .no-select::selection, .no-select *::selection {
     background-color: Transparent;
   }
-  .no-select { /* Sometimes I add this too. */
+  .no-select {
     cursor: default;
+    pointer-events: none;
+  }
+  .select {
+    pointer-events: auto;
   }
 
   h1 {
@@ -46,7 +50,6 @@ export const className = `
 
   img {
     filter: grayscale(100%);
-    // width: 37px;
     height: 37px;
     padding-left: 10px;
     padding-right: 10px;
@@ -65,32 +68,35 @@ export const className = `
 `
 
 const morningRoutineAction = () => {
-    console.log(`morningRoutineAction: ${exec}`);
-    exec('open -u https://google.com');
+    run('open -u https://gmail.com https://edisciplinas.usp.br/calendar/view.php?view=month https://calendar.google.com');
+    run('open -a Telegram');
+    run('open -a Todoist');
 };
 const legumoDartAction = () => {
-    exec('open /Users/lucadillenburg/Documents/.legumo.code-workspace');
+    run('open /Users/lucadillenburg/Documents/.legumo.code-workspace');
 };
 const legumoTypescriptAction = () => {
-    exec('legumo; code server');
+    run("open /Users/lucadillenburg/Documents/Legumo/server -a 'Visual Studio Code'");
 };
 const uspAction = () => {
-    exec('legumo; code server');
+    run('open -u https://edisciplinas.usp.br/ notion://www.notion.so/dillenburg/University-eef5a8de19cb4bd0ab40e674fcefd339');
 };
 
 // render gets called after the shell command has executed. The command's output
 // is passed in as a string.
 export const render = ({ output }) => {
+    console.log('render');
     return (
         <div className="no-select">
             <h1 className="no-select">{output}</h1>
             <div className="line" />
             <div className="no-select">
-                {/* <a href="https://google.com"> </a>*/}
-                <img src="images/sun.png" className="no-select"></img>
-                <img src="images/dart.png" className="no-select"></img>
-                <img src="images/typescript.png" className="no-select"></img>
-                <img src="images/usp.png" className="no-select" style={{ height: 27, paddingBottom: 5 }}></img>
+                <img src="images/sun.png" className="select" onClick={morningRoutineAction}></img>
+                <img src="images/dart.png" className="select" onClick={legumoDartAction}></img>
+                <img src="images/typescript.png" className="select" onClick={legumoTypescriptAction} ></img>
+                <img
+                    src="images/usp.png" className="no-select" style={{ height: 27, paddingBottom: 5 }}
+                    onClick={uspAction}></img>
             </div>
             <div className="verse" >
                 <span className="no-select">
