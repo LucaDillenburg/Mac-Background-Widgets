@@ -16,16 +16,18 @@ export const refreshFrequency = 10000000; // about 3h
 // the CSS style for this widget, written using Emotion
 // https://emotion.sh/
 export const className = `
-  top: 7%;
+  top: 9%;
   right: 0;
   left: 0;
-  width: 530px;
+  width: 500px;
   margin: auto;
   color: #fff;
   font-family: Helvetica Neue;
   font-weight: 200;
   text-align: center;
   line-height: 1.5;
+
+  opacity: 0.7;
 
   .no-select::selection, .no-select *::selection {
     background-color: Transparent;
@@ -39,31 +41,38 @@ export const className = `
   }
 
   h1 {
-    font-size: 50px;
-    margin: 16px 0 0px 0px;
-  }
-
-  span {
-    font-size: 20px;
-    font-style: normal;
+    font-size: 40px;
+    margin: 0px 0px -5px 0px;
   }
 
   img {
     filter: grayscale(100%);
-    height: 37px;
-    padding-left: 10px;
-    padding-right: 10px;
+    height: 30px;
+    margin-left: 10px;
+    margin-right: 10px;
   }
 
   .line {
     border-top: 1px solid #ffffffbb;
-    margin-left: 100px;
-    margin-right: 100px;
-    margin-bottom: 15px;
+    margin-left: 70px;
+    margin-right: 70px;
   }
 
   .verse {
-      margin-top: 10px;
+      display: block;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 300;
+      b {
+          font-size: 22px;
+          font-weight: 500;
+      }
+  }
+
+  .phrase {
+      font-size: 14px;
+      font-style: bold;
+      color: #eee;
   }
 `
 
@@ -73,13 +82,17 @@ const morningRoutineAction = () => {
     run('open -a Todoist');
 };
 const legumoDartAction = () => {
-    run('open /Users/lucadillenburg/Documents/.legumo.code-workspace');
+    run("open /Users/lucadillenburg/Documents/Legumo/front -a 'Visual Studio Code'");
 };
 const legumoTypescriptAction = () => {
     run("open /Users/lucadillenburg/Documents/Legumo/server -a 'Visual Studio Code'");
 };
 const uspAction = () => {
-    run('open -u https://edisciplinas.usp.br/ notion://www.notion.so/dillenburg/University-eef5a8de19cb4bd0ab40e674fcefd339');
+    try {
+        run('open notion://www.notion.so/dillenburg/University-eef5a8de19cb4bd0ab40e674fcefd339 -a Notion');
+    } catch (e) {
+        console.log(e);
+    }
 };
 
 // render gets called after the shell command has executed. The command's output
@@ -88,21 +101,20 @@ export const render = ({ output }) => {
     console.log('render');
     return (
         <div className="no-select">
-            <h1 className="no-select">{output}</h1>
+            {/* <h1 className="no-select">{output}</h1> */}
+            <h1 className="no-select">Seek Discomfort</h1>
             <div className="line" />
+            <div style={{ height: '5px' }} />
+            <span className="no-select verse">
+                "Antes, o seu prazer está na lei do Senhor, e na sua lei, medita de dia e de noite." - <b>Salmos 1:2</b>
+            </span>
+            <div style={{ height: '20px' }} />
             <div className="no-select">
-                <img src="images/sun.png" className="select" onClick={morningRoutineAction}></img>
-                <img src="images/dart.png" className="select" onClick={legumoDartAction}></img>
-                <img src="images/typescript.png" className="select" onClick={legumoTypescriptAction} ></img>
-                <img
-                    src="images/usp.png" className="no-select" style={{ height: 27, paddingBottom: 5 }}
-                    onClick={uspAction}></img>
+                <img src="images/education.svg" className="select" onClick={uspAction}></img>
+                <img src="images/server.svg" className="select" onClick={legumoDartAction}></img>
+                <img src="images/app.svg" className="select" onClick={legumoTypescriptAction} ></img>
             </div>
-            <div className="verse" >
-                <span className="no-select">
-                    "Antes, o seu prazer está na lei do Senhor, e na sua lei, medita de dia e de noite." Salmos 1:2
-                </span>
-            </div>
+            {/* <span className="no-select phrase"><b>Lembrete:</b> 1% no dia, 37 vezes no ano</span> */}
         </div >
     );
 }
